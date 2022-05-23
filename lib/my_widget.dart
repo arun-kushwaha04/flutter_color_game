@@ -49,6 +49,7 @@ class _MyWidgetState extends State<MyWidget> {
   void _startGame() {
     setState(() {
       isPlaying = true;
+      generateColor();
     });
   }
 
