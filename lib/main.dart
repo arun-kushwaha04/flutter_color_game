@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
 
   static const double _size = 100.0;
   static const double _gap = 25;
-  static const bool _isPlaying = false;
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +23,29 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  bool _isPlaying = false;
   final double size;
   final double gap;
 
-  const HomeScreen({super.key, required this.size, required this.gap});
+  HomeScreen({super.key, required this.size, required this.gap});
 
+  void StartGame() {
+    _isPlaying = true;
+  }
+
+  void EndGame() {
+    _isPlaying = false;
+  }
+
+  
+
+  @override
+  State<HomeScreen> createState() => _HomeScreen();
+}
+
+class _HomeScreen extends State<HomeScreen> {
+  
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -40,27 +56,27 @@ class HomeScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                CircleButton(size: size, color: Colors.red),
+                CircleButton(size: widget.size, color: Colors.red),
                 VerticalDivider(
-                  width: gap,
+                  width: widget.gap,
                 ),
-                CircleButton(size: size, color: Colors.yellow),
+                CircleButton(size: widget.size, color: Colors.yellow),
               ]),
           Container(
-            height: gap,
+            height: widget.gap,
           ),
           Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                CircleButton(size: size, color: Colors.blue),
+                CircleButton(size: widget.size, color: Colors.blue),
                 VerticalDivider(
-                  width: gap,
+                  width: widget.gap,
                 ),
-                CircleButton(size: size, color: Colors.green),
+                CircleButton(size: widget.size, color: Colors.green),
               ]),
           Container(
-            height: 2 * gap,
+            height: 2 * widget.gap,
           ),
           const Text(
             "Welcome to the color game!",
@@ -68,11 +84,16 @@ class HomeScreen extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
           ),
           Container(
-            height: gap,
+            height: widget.gap,
           ),
-          const Text(
-            "Simple Game, Try tap on the right color to proceed futher.",
-            textAlign: TextAlign.center,
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              "Simple Game, Try tap on the right color to proceed futher. Click on any circle to continue !!",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16),
+              overflow: TextOverflow.clip,
+            ),
           )
         ]);
   }
